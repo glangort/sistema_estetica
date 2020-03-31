@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import {
   Collapse,
   Navbar,
@@ -12,14 +12,14 @@ import {
   DropdownMenu,
   DropdownItem,
   Container,
-} from 'reactstrap'
+} from 'reactstrap';
 
-import './style.css'
+import './style.css';
 
 const NavbarCompleto = props => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = () => setIsOpen(!isOpen)
+  const toggle = () => setIsOpen(!isOpen);
 
   return (
     <Container>
@@ -28,7 +28,7 @@ const NavbarCompleto = props => {
           <img
             width='150em'
             height='150em'
-            alt='...'
+            alt='Estetica Vanessa Baranano'
             src={require('../../assets/img/brand/logo_vanessa.png')}
           />
         </NavbarBrand>
@@ -45,7 +45,7 @@ const NavbarCompleto = props => {
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem href='/clientes'>Clientes</DropdownItem>
-                <DropdownItem href='#'>Novo Cliente</DropdownItem>
+                <DropdownItem href='/clientes/new'>Novo Cliente</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
 
@@ -62,7 +62,7 @@ const NavbarCompleto = props => {
         </Collapse>
       </Navbar>
     </Container>
-  )
-}
+  );
+};
 
-export default NavbarCompleto
+export default NavbarCompleto;

@@ -1,19 +1,27 @@
-import React from 'react'
+import React from 'react';
 
 // reactstrap components
-import { Badge, Card, CardBody, CardImg, Container, Row, Col } from 'reactstrap'
+import {
+  Badge,
+  Card,
+  CardBody,
+  CardImg,
+  Container,
+  Row,
+  Col,
+} from 'reactstrap';
 
 // core components
-import NavbarSimples from '../components/NavbarSimples'
-import SimpleFooter from '../components/Footers'
+import NavbarSimples from '../components/NavbarSimples';
+import SimpleFooter from '../components/Footers';
 
 class Index extends React.Component {
-  state = {}
+  state = {};
 
   componentDidMount() {
-    document.documentElement.scrollTop = 0
-    document.scrollingElement.scrollTop = 0
-    this.refs.main.scrollTop = 0
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    this.refs.main.scrollTop = 0;
   }
 
   render() {
@@ -211,16 +219,19 @@ class Index extends React.Component {
                     <div className='icon icon-lg icon-shape icon-shape-default shadow rounded-circle mb-5'>
                       <i className='ni ni-check-bold' />
                     </div>
-                    <h3>Primeiro eu queria cumprimentar os internautas.</h3>
+                    <h3>
+                      {' '}
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Iusto, quam.
+                    </h3>
                     <p className='lead'>
-                      -Oi Internautas! Depois dizer que o meio ambiente é sem
-                      dúvida nenhuma uma ameaça ao desenvolvimento sustentável.
-                      E isso significa que é uma ameaça pro futuro do nosso
-                      planeta e dos nossos países. O desemprego beira 20%, ou
-                      seja, 1 em cada 4 portugueses.
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Placeat numquam deleniti sapiente veniam cum, reiciendis
+                      laudantium alias, vel doloremque sed reprehenderit
+                      distinctio nobis ad. Iure vero obcaecati corrupti sequi
+                      ipsa, illo veritatis alias accusamus, maxime dolorem
+                      provident aut minima fuga.
                     </p>
-                    <p>Formação</p>
-                    <p>Formação</p>
                   </div>
                 </Col>
               </Row>
@@ -317,8 +328,8 @@ class Index extends React.Component {
         </main>
         <SimpleFooter />
       </>
-    )
+    );
   }
 }
 
-export default Index
+export default Index;

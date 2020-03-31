@@ -1,5 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react';
 
 // reactstrap components
 import {
@@ -15,41 +14,41 @@ import {
   Container,
   Row,
   Col,
-} from 'reactstrap'
-import api from '../../services/api'
+  Alert,
+} from 'reactstrap';
+import api from '../../services/api';
 // core components
-import NavbarSimples from '../../components/NavbarSimples'
-import history from '../../history'
+// import NavbarSimples from '../../components/NavbarSimples';
+import history from '../../history';
 
-import { login, userId } from '../../services/auth'
+import { login } from '../../services/auth';
 
 const Login = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  async function handleSubmit(event) {
-    event.preventDefault()
+  const [alert, setAlert] = useState(false);
 
-    const response = await api.post('/session', { username, password })
+  async function handleLogin(e) {
+    e.preventDefault();
 
-    login(response.data.token)
+    try {
+      const response = await api.post('/session', { username, password });
+      login(response.data.token);
 
-    const user = await api.get(`/userid/${username}`)
+      const user = await api.get(`/userid/${username}`);
+      localStorage.setItem('user_id', user.data[0].id);
 
-    localStorage.setItem('user_id', user.data.id)
-
-    const usuario = user.map(users => {
-      return localStorage.setItem('user_id', users.id)
-    })
-
-    history.push('/dashboard')
+      history.push('/dashboard');
+    } catch (error) {
+      setAlert(true);
+    }
   }
 
   return (
     <>
-      <NavbarSimples />
       <main>
-        <section className='section section-shaped section-lg'>
+        <section className='section section-shaped'>
           <div className='shape shape-style-1 bg-gradient-default'>
             <span />
             <span />
@@ -60,16 +59,24 @@ const Login = () => {
             <span />
             <span />
           </div>
-          <Container className='pt-lg-7'>
+          <Container className='pt-lg-3'>
             <Row className='justify-content-center'>
-              <Col lg='5'>
+              <Col lg='5' style={{}}>
                 <Card className='bg-secondary shadow border-0'>
+                  <img
+                    width='50%'
+                    alt='Estetica Vanessa Baranano'
+                    src={require('assets/img/brand/logo_vanessa.png')}
+                    style={{ alignSelf: 'center', marginTop: '10px' }}
+                  />
                   <CardBody className='px-lg-5 py-lg-5'>
                     <div className='text-center text-muted mb-4'>
                       <small>Entre com seu Usuário e Senha</small>
                     </div>
-
-                    <Form role='form' onSubmit={handleSubmit}>
+                    <Form role='form' onSubmit={handleLogin}>
+                      <Alert color='danger' isOpen={alert}>
+                        Usuario ou Senha Invalidos.
+                      </Alert>
                       <FormGroup className='mb-3'>
                         <InputGroup className='input-group-alternative'>
                           <InputGroupAddon addonType='prepend'>
@@ -82,7 +89,8 @@ const Login = () => {
                             type='user'
                             id='user'
                             value={username}
-                            onChange={event => setUsername(event.target.value)}
+                            onChange={e => setUsername(e.target.value)}
+                            required
                           />
                         </InputGroup>
                       </FormGroup>
@@ -100,7 +108,8 @@ const Login = () => {
                             autoComplete='off'
                             id='password'
                             value={password}
-                            onChange={event => setPassword(event.target.value)}
+                            onChange={e => setPassword(e.target.value)}
+                            required
                           />
                         </InputGroup>
                       </FormGroup>
@@ -111,12 +120,6 @@ const Login = () => {
                           id=' customCheckLogin'
                           type='checkbox'
                         />
-                        <label
-                          className='custom-control-label'
-                          htmlFor=' customCheckLogin'
-                        >
-                          <span>Lembrar-me</span>
-                        </label>
                       </div>
                       <div className='text-center'>
                         <Button className='my-4' color='primary' type='submit'>
@@ -132,7 +135,7 @@ const Login = () => {
         </section>
       </main>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

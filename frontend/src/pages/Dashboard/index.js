@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 // import { Container, Navbar } from 'reactstrap'
 
-import { Button, Table, Container, Card } from 'reactstrap'
-import { format, parseISO } from 'date-fns'
+import { Button, Table, Container, Card } from 'reactstrap';
+import { format, parseISO } from 'date-fns';
 
-import api from '../../services/api'
-import NavbarCompleta from '../../components/NavbarCompleto'
+import api from '../../services/api';
+import NavbarCompleta from '../../components/NavbarCompleto';
 
-import './style.css'
+import './style.css';
 
 export default function Dashboard() {
-  const [agendamentos, setAgendamentos] = useState([])
+  const [agendamentos, setAgendamentos] = useState([]);
 
   useEffect(() => {
     async function carregaAgendamentos() {
-      const data = format(new Date(), 'yyyyMMdd')
+      const data = format(new Date(), 'yyyyMMdd');
 
-      const response = await api.get(`/agendamentosdata/${data}`)
+      const response = await api.get(`/agendamentosdata/${data}`);
 
-      setAgendamentos(response.data)
+      setAgendamentos(response.data);
     }
 
-    carregaAgendamentos()
-  }, [])
+    carregaAgendamentos();
+  }, []);
 
   function agendamentosLivres() {
     const horarios = agendamentos.map(agendamento => {
@@ -52,13 +52,13 @@ export default function Dashboard() {
             </Button>
           </td>
         </tr>
-      )
-    })
+      );
+    });
 
-    return horarios
+    return horarios;
   }
 
-  const horarios = agendamentosLivres()
+  const horarios = agendamentosLivres();
 
   return (
     <>
@@ -83,5 +83,5 @@ export default function Dashboard() {
         </Card>
       </Container>
     </>
-  )
+  );
 }

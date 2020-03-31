@@ -6,7 +6,7 @@ class SessionController {
 
     const { token } = await auth.attempt(username, password);
 
-    return { token };
+    return { token, username };
   }
 }
 
