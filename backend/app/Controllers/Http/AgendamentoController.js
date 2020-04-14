@@ -8,25 +8,9 @@ const Agendamento = use('App/Models/Agendamento');
 class AgendamentoController {
   async index() {
     const agendamento = await Agendamento.query()
-      .with('clientes')
-      .fetch();
-
-    return agendamento;
-  }
-
-  async buscaData({ params }) {
-    const agendamento = await Agendamento.query()
-      .where('data', '=', params.data)
-      .with('clientes')
-      .fetch();
-
-    return agendamento;
-  }
-
-  async buscaHora({ params }) {
-    const agendamento = await Agendamento.query()
-      .select('hora_inicio')
-      .where('data', '=', params.data)
+      .with('clientes', builder => {
+        builder.select(['id', 'data']);
+      })
       .fetch();
 
     return agendamento;

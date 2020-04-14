@@ -9,6 +9,7 @@ class ClientesSchema extends Schema {
       table.increments();
       table.string('nome').notNullable();
       table.string('endereco').notNullable();
+      table.string('dataNascimento');
       table.string('idade');
       table.string('numero');
       table.string('telefone1').notNullable();

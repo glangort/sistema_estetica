@@ -1,16 +1,10 @@
-export const TOKEN_KEY = ''
-export const USER_ID = ''
-export const isAuthenticated = () => localStorage.getItem(TOKEN_KEY) !== null
-export const getToken = () => localStorage.getItem(TOKEN_KEY)
-export const getUserid = () => localStorage.getItem(USER_ID)
+export const USER_ID = '';
+export const isAuthenticated = () => localStorage.getItem('USER_ID') !== null;
+export const getId = () => localStorage.getItem('USER_ID');
 
-export const login = token => {
-  localStorage.setItem(TOKEN_KEY, token)
-}
+export const login = (id) => {
+  localStorage.setItem('USER_ID', id);
+};
 export const logout = () => {
-  localStorage.removeItem(TOKEN_KEY)
-}
-
-export const userId = userid => {
-  localStorage.setItem(USER_ID, userid)
-}
+  localStorage.clear();
+};

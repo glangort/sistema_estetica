@@ -6,11 +6,29 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 
 const Cliente = use('App/Models/Cliente');
+const Agendamento = use('App/Models/Agendamento');
 
 class ClienteController {
-  async index() {
-    const clientes = await Cliente.query().fetch();
+  // async index() {
+  //   const clientes = await Cliente.query()
+  //     .with('agendamentos', builder => {
+  //       builder.select('cliente_id', 'data');
+  //       builder.orderBy('data', 'desc');
+  //     })
+  //     .fetch();
 
+  //   return clientes;
+  // }
+
+  async index() {
+    const clientes = await Cliente.select(
+      knex.raw(
+        '(select data from agendamentos' +
+          'where agendamentos.cliente_id = clientes.id' +
+          'order by agendamentos.data desc' +
+          'limit 1) as Ultima'
+      )
+    ).from('clientes');
     return clientes;
   }
 

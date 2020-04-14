@@ -5,7 +5,7 @@ const Model = use('Model');
 
 class Agendamento extends Model {
   clientes() {
-    return this.belongsTo('App/Models/Cliente');
+    return this.belongsToMany('App/Models/Cliente');
   }
   user() {
     return this.hasOne('App/Models/User');

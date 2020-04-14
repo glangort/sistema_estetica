@@ -20,6 +20,7 @@ class AgendamentoSchema extends Schema {
       table.date('data');
       table.time('hora_inicio');
       table.time('hora_fim');
+      table.string('estado');
 
       table.timestamps();
     });

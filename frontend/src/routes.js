@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   BrowserRouter,
   Route,
@@ -9,22 +8,30 @@ import {
 } from 'react-router-dom';
 
 import history from './history';
-import Login from './pages/Login';
-import Index from './pages/Index';
-import Dashboard from './pages/Dashboard';
-import NewClientes from './pages/NewClientes';
 import Agendamento from './pages/Agendamentos';
 import Clientes from './pages/Clientes';
+import Dashboard from './pages/Dashboard';
+import Index from './pages/Index';
+import Login from './pages/Login';
+import NewClientes from './pages/NewClientes';
+import ViewClients from './pages/ClientView';
 import { isAuthenticated } from './services/auth';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
+    render={(props) =>
       isAuthenticated() ? (
         <Component {...props} />
       ) : (
-        <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+        <Redirect
+          to={{
+            pathname: '/',
+            state: {
+              from: props.location,
+            },
+          }}
+        />
       )
     }
   />
@@ -37,8 +44,11 @@ const Routes = () => (
         <Route path='/' exact component={Index} />
         <Route path='/login' exact component={Login} />
         <PrivateRoute path='/dashboard' exact component={Dashboard} />
+
         <PrivateRoute path='/clientes/new' exact component={NewClientes} />
         <PrivateRoute path='/clientes' exact component={Clientes} />
+        <PrivateRoute path='/clientes/view/' exact component={ViewClients} />
+
         <PrivateRoute path='/agendamentos' exact component={Agendamento} />
       </Router>
     </Switch>

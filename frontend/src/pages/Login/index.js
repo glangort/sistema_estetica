@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 // reactstrap components
 import {
   Button,
@@ -16,11 +15,11 @@ import {
   Col,
   Alert,
 } from 'reactstrap';
+
+import history from '../../history';
 import api from '../../services/api';
 // core components
 // import NavbarSimples from '../../components/NavbarSimples';
-import history from '../../history';
-
 import { login } from '../../services/auth';
 
 const Login = () => {
@@ -33,11 +32,12 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await api.post('/session', { username, password });
-      login(response.data.token);
+      const response = await api.post('/session', {
+        username,
+        password,
+      });
 
-      const user = await api.get(`/userid/${username}`);
-      localStorage.setItem('user_id', user.data[0].id);
+      login(response.data.id);
 
       history.push('/dashboard');
     } catch (error) {
@@ -67,11 +67,14 @@ const Login = () => {
                     width='50%'
                     alt='Estetica Vanessa Baranano'
                     src={require('assets/img/brand/logo_vanessa.png')}
-                    style={{ alignSelf: 'center', marginTop: '10px' }}
+                    style={{
+                      alignSelf: 'center',
+                      marginTop: '10px',
+                    }}
                   />
                   <CardBody className='px-lg-5 py-lg-5'>
                     <div className='text-center text-muted mb-4'>
-                      <small>Entre com seu Usuário e Senha</small>
+                      <small> Entre com seu Usuário e Senha </small>
                     </div>
                     <Form role='form' onSubmit={handleLogin}>
                       <Alert color='danger' isOpen={alert}>
@@ -89,12 +92,11 @@ const Login = () => {
                             type='user'
                             id='user'
                             value={username}
-                            onChange={e => setUsername(e.target.value)}
+                            onChange={(e) => setUsername(e.target.value)}
                             required
                           />
                         </InputGroup>
                       </FormGroup>
-
                       <FormGroup>
                         <InputGroup className='input-group-alternative'>
                           <InputGroupAddon addonType='prepend'>
@@ -108,12 +110,11 @@ const Login = () => {
                             autoComplete='off'
                             id='password'
                             value={password}
-                            onChange={e => setPassword(e.target.value)}
+                            onChange={(e) => setPassword(e.target.value)}
                             required
                           />
                         </InputGroup>
                       </FormGroup>
-
                       <div className='custom-control custom-control-alternative custom-checkbox'>
                         <input
                           className='custom-control-input'

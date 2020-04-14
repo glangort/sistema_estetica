@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 // import { Container, Navbar } from 'reactstrap'
 
@@ -15,7 +16,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function carregaClientes() {
-      const response = await api.get('/clientes');
+      const response = await api.get('/client/list');
 
       setClientes(response.data);
     }
@@ -23,22 +24,46 @@ export default function Dashboard() {
     carregaClientes();
   }, []);
 
-  const cliente = clientes.map(pessoas => {
+  async function handleView(id) {
+    console.log(id);
+  }
+
+  const cliente = clientes.map((pessoas) => {
     return (
       <tr key={pessoas.id}>
         <th scope='row'>{pessoas.id}</th>
-        <td>{pessoas.nome}</td>
-        <td>{pessoas.telefone1}</td>
-        <td>{pessoas.telefone2}</td>
-        <td>Ultimo Atendimento</td>
+        <td>{pessoas.name}</td>
+        <td>{pessoas.phonenumber}</td>
+        <td>{pessoas.celphonenumber}</td>
+        <td>{format(parseISO(pessoas.schedule[0].date), 'dd/MM/yyyy')}</td>
         <td>
-          <Button className='button-editar' color='warning'>
+          {/* <Button className='button-editar' color='success'>
             Visualizar
-          </Button>
+          </Button> */}
 
-          <Button className='button-cancelar' color='danger'>
+          <Link
+            type='button'
+            className='btn button-editar btn-success'
+            to={{ pathname: '/clientes/view/', state: { userId: pessoas.id } }}
+          >
+            Visualizar
+          </Link>
+
+          <Link
+            type='button'
+            className='btn button-editar btn-warning'
+            to={`/client/edit/${pessoas.id}`}
+          >
+            Editar
+          </Link>
+
+          <Link
+            type='button'
+            className='btn button-cancelar btn-danger'
+            to={`/client/delete/${pessoas.id}`}
+          >
             Excluir
-          </Button>
+          </Link>
         </td>
       </tr>
     );
