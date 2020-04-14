@@ -6,6 +6,7 @@ const ClientController = require('./controllers/ClientController');
 const ScheduleController = require('./controllers/ScheduleController');
 const AnamneseController = require('./controllers/AnamneseController');
 const MeasuresController = require('./controllers/MeasuresController');
+const AdministrationSchedules = require('./controllers/AdministrationSchedules');
 
 const routes = express.Router();
 
@@ -45,5 +46,11 @@ routes.get('/measures', MeasuresController.index);
 routes.get('/measures/:id', MeasuresController.search);
 routes.put('/measures/:id/update', MeasuresController.update);
 routes.delete('/measures/:id/delete', MeasuresController.delete);
+
+routes.post('/administration', AdministrationSchedules.store);
+routes.get('/administration', AdministrationSchedules.index);
+routes.get('/administration/:id', AdministrationSchedules.search);
+routes.put('/administration/:id/update', AdministrationSchedules.update);
+routes.delete('/administration/:id/delete', AdministrationSchedules.delete);
 
 module.exports = routes;
