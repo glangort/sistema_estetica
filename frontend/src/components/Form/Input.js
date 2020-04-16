@@ -1,0 +1,29 @@
+import React, { useEffect, useRef } from 'react';
+
+import { useField } from '@unform/core';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+export default function Input({ name, ...rest }) {
+  const inputRef = useRef(null);
+
+  const { fieldName, defaultValue, registerField, error } = useField(name);
+
+  useEffect(() => {
+    registerField({
+      name: fieldName,
+
+      ref: inputRef.current,
+
+      path: 'value',
+    });
+  }, [fieldName, registerField]);
+
+  return (
+    <div>
+      <input ref={inputRef} defaultValue={defaultValue} {...rest} />
+      {error && <div className='invalid-feedback'>{error}</div>}
+    </div>
+  );
+}

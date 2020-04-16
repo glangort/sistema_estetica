@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 // reactstrap components
 import {
   Button,
   Card,
   CardBody,
   FormGroup,
-  Form,
-  Input,
   InputGroupAddon,
   InputGroupText,
   InputGroup,
@@ -21,27 +19,34 @@ import api from '../../services/api';
 // core components
 // import NavbarSimples from '../../components/NavbarSimples';
 import { login } from '../../services/auth';
+import { Form } from '@unform/web';
+import Input from '../../components/Form/Input';
+import validateLogin from '../../validations/Login';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
   const [alert, setAlert] = useState(false);
 
-  async function handleLogin(e) {
-    e.preventDefault();
+  const formRef = useRef(null);
 
-    try {
-      const response = await api.post('/session', {
-        username,
-        password,
-      });
+  async function handleLogin(data) {
+    const { username, password } = data;
+    const validationErrors = await validateLogin(data, formRef);
 
-      login(response.data.id);
+    if (!validationErrors) {
+      try {
+        const response = await api.post('/session', {
+          username,
+          password,
+        });
 
-      history.push('/dashboard');
-    } catch (error) {
-      setAlert(true);
+        login(response.data.id);
+
+        history.push('/dashboard');
+      } catch (error) {
+        setAlert(true);
+      }
+    } else {
+      formRef.current.setErrors(validationErrors);
     }
   }
 
@@ -76,7 +81,7 @@ const Login = () => {
                     <div className='text-center text-muted mb-4'>
                       <small> Entre com seu Usuário e Senha </small>
                     </div>
-                    <Form role='form' onSubmit={handleLogin}>
+                    <Form ref={formRef} onSubmit={handleLogin}>
                       <Alert color='danger' isOpen={alert}>
                         Usuario ou Senha Invalidos.
                       </Alert>
@@ -89,11 +94,9 @@ const Login = () => {
                           </InputGroupAddon>
                           <Input
                             placeholder='Usuário'
-                            type='user'
+                            name='username'
                             id='user'
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
+                            className='form-control is-invalid'
                           />
                         </InputGroup>
                       </FormGroup>
@@ -107,11 +110,10 @@ const Login = () => {
                           <Input
                             placeholder='Senha'
                             type='password'
+                            name='password'
                             autoComplete='off'
                             id='password'
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
+                            className='form-control is-invalid'
                           />
                         </InputGroup>
                       </FormGroup>

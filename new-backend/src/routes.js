@@ -6,7 +6,7 @@ const ClientController = require('./controllers/ClientController');
 const ScheduleController = require('./controllers/ScheduleController');
 const AnamneseController = require('./controllers/AnamneseController');
 const MeasuresController = require('./controllers/MeasuresController');
-const AdministrationSchedules = require('./controllers/AdministrationSchedules');
+const AdministrationSchedules = require('./controllers/AdministrationScheduleController');
 
 const routes = express.Router();
 

@@ -17,16 +17,16 @@ export default function Dashboard() {
     async function carregaAgendamentos() {
       const data = format(new Date(), 'yyyyMMdd');
 
-      const response = await api.get(`/agendamentosdata/${data}`);
+      // const response = await api.get(`/agendamentosdata/${data}`);
 
-      setAgendamentos(response.data);
+      // setAgendamentos(response.data);
     }
 
     carregaAgendamentos();
   }, []);
 
   function agendamentosLivres() {
-    const horarios = agendamentos.map(agendamento => {
+    const horarios = agendamentos.map((agendamento) => {
       return (
         <tr key={agendamento.id}>
           <th scope='row'>{agendamento.id}</th>
