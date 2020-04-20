@@ -1,0 +1,10 @@
+.principal {
+  margin-left: 5em;
+  margin-top: 0.5em;
+}
+.button {
+  align-items: center;
+  align-content: center;
+
+  width: '100px';
+}

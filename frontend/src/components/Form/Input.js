@@ -2,9 +2,6 @@ import React, { useEffect, useRef } from 'react';
 
 import { useField } from '@unform/core';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 export default function Input({ name, ...rest }) {
   const inputRef = useRef(null);
 

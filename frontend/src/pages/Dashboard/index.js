@@ -2,24 +2,24 @@ import React, { useEffect, useState } from 'react';
 
 // import { Container, Navbar } from 'reactstrap'
 
-import { Button, Table, Container, Card } from 'reactstrap';
+import { Table, Container, Card } from 'reactstrap';
 import { format, parseISO } from 'date-fns';
 
 import api from '../../services/api';
 import NavbarCompleta from '../../components/NavbarCompleto';
+import ModalEditDashboard from '../../components/Modals/Dashboard/EditModal';
+import DatePicker from 'react-datepicker';
 
-import './style.css';
+import './styles.css';
 
 export default function Dashboard() {
   const [agendamentos, setAgendamentos] = useState([]);
 
   useEffect(() => {
     async function carregaAgendamentos() {
-      const data = format(new Date(), 'yyyyMMdd');
+      const response = await api.get('/dashboard/schedules');
 
-      // const response = await api.get(`/agendamentosdata/${data}`);
-
-      // setAgendamentos(response.data);
+      setAgendamentos(response.data);
     }
 
     carregaAgendamentos();
@@ -29,27 +29,39 @@ export default function Dashboard() {
     const horarios = agendamentos.map((agendamento) => {
       return (
         <tr key={agendamento.id}>
-          <th scope='row'>{agendamento.id}</th>
-          <td>{agendamento.clientes.nome}</td>
-          <td>{format(parseISO(agendamento.data), 'dd/MM/yyyy')}</td>
-          <td>{agendamento.hora_inicio}</td>
-          <td>{agendamento.hora_fim}</td>
+          <td>{agendamento.client.name}</td>
+          <td>{agendamento.client.phonenumber}</td>
+          <td>{format(parseISO(agendamento.date), 'dd/MM/yyyy')}</td>
+          <td>{agendamento.starttime}</td>
+          <td></td>
           <td>
-            <Button
-              className='button-confirmar'
-              color='success'
-              item={agendamento}
+            {/* <Link
+              type='button'
+              className='btn button-editar btn-success'
+              to={{
+                pathname: '/schedule/view/',
+                state: { scheduleId: agendamento.id },
+              }}
             >
-              Confirmar
-            </Button>
-
-            <Button className='button-cancelar' color='danger'>
+              Visualizar
+            </Link> */}
+            <ModalEditDashboard
+              class='btn button-editar btn-warning button'
+              buttonLabel='Alterar'
+              scheduleID={agendamento.id}
+            />
+            {/* <ModalEditDashboard buttonLabel='Alterar' />
+            <ModalEditDashboard buttonLabel='Alterar' /> */}
+            {/* <Link
+              type='button'
+              className='btn button-cancelar btn-danger'
+              to={{
+                pathname: '/schedule/view/',
+                state: { scheduleId: agendamento.id },
+              }}
+            >
               Cancelar
-            </Button>
-
-            <Button className='button-editar' color='warning'>
-              Editar
-            </Button>
+            </Link> */}
           </td>
         </tr>
       );
@@ -70,11 +82,11 @@ export default function Dashboard() {
           <Table responsive hover>
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Cliente</th>
+                <th>Telefone</th>
                 <th>Data</th>
                 <th>Horario de Inicio</th>
-                <th>Previsão de Termino</th>
+                <th></th>
                 <th />
               </tr>
             </thead>

@@ -7,6 +7,7 @@ const ScheduleController = require('./controllers/ScheduleController');
 const AnamneseController = require('./controllers/AnamneseController');
 const MeasuresController = require('./controllers/MeasuresController');
 const AdministrationSchedules = require('./controllers/AdministrationScheduleController');
+const DashboardController = require('./controllers/DashboardController');
 
 const routes = express.Router();
 
@@ -52,5 +53,7 @@ routes.get('/administration', AdministrationSchedules.index);
 routes.get('/administration/:id', AdministrationSchedules.search);
 routes.put('/administration/:id/update', AdministrationSchedules.update);
 routes.delete('/administration/:id/delete', AdministrationSchedules.delete);
+
+routes.get('/dashboard/schedules', DashboardController.search);
 
 module.exports = routes;

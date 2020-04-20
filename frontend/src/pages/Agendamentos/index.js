@@ -7,12 +7,12 @@ import { format, parseISO } from 'date-fns';
 
 import api from '../../services/api';
 import NavbarCompleta from '../../components/NavbarCompleto';
-import listaHorasDia, { comparaHorarios } from '../../utils';
+//import listaHorasDia, { comparaHorarios } from '../../utils';
 
 import './style.css';
 
 export default function Dashboard() {
-  const horaslivres = listaHorasDia(8, 12, 14, 19);
+  // const horaslivres = listaHorasDia(8, 12, 14, 19);
 
   const [agendamentos, setAgendamentos] = useState([]);
   const [horas, setHoras] = useState([]);
