@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 // import { Container, Navbar } from 'reactstrap'
 
-import { Button, Table, Container, CardBody, Card } from 'reactstrap';
+import { Button, Table, Container, Card } from 'reactstrap';
 import { format, parseISO } from 'date-fns';
 
 import api from '../../services/api';
@@ -15,7 +15,7 @@ export default function Dashboard() {
   // const horaslivres = listaHorasDia(8, 12, 14, 19);
 
   const [agendamentos, setAgendamentos] = useState([]);
-  const [horas, setHoras] = useState([]);
+  // const [horas, setHoras] = useState([]);
 
   useEffect(() => {
     async function carregaAgendamentos() {

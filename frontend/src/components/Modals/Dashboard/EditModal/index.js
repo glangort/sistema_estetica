@@ -1,23 +1,24 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Form,
-  FormGroup,
+  // Form,
+  // FormGroup,
 } from 'reactstrap';
+import './styles.css';
 
 import DatePicker from 'react-datepicker';
-import { parseISO, parse, setMinutes } from 'date-fns';
-import { setHours } from 'date-fns/esm';
-import SelectSearch from 'react-select-search';
+// import { parseISO, parse, setMinutes } from 'date-fns';
+// import { setHours } from 'date-fns/esm';
+// import SelectSearch from 'react-select-search';
 
 const ModalExample = (props) => {
   const { buttonLabel, className } = props;
   const [startDate, setStartDate] = useState('');
-  const [startTime, setStartTime] = useState('');
+  // const [startTime, setStartTime] = useState('');
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -32,25 +33,11 @@ const ModalExample = (props) => {
           Escolha uma nova data para o atendimento.
         </ModalHeader>
         <ModalBody>
-          <Form>
-            <FormGroup>
-              <DatePicker
-                dateFormat='dd/MM/yyyy'
-                selected={startDate}
-                placeholderText='Selecione uma nova data.'
-                onChange={(date) => setStartDate(date)}
-              />{' '}
-              <DatePicker
-                selected={startTime}
-                onChange={(time) => setStartTime(time)}
-                showTimeSelect
-                showTimeSelectOnly
-                timeCaption='Horario'
-                dateFormat='hh:mm aa'
-                placeholderText='Selecione um novo horario.'
-              />
-            </FormGroup>
-          </Form>
+          {/* Arrumar os campos que não estavam pegando o css  */}
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+          />
         </ModalBody>
         <ModalFooter>
           <Button color='primary'>Salvar</Button>{' '}

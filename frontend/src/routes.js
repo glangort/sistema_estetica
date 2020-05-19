@@ -45,9 +45,9 @@ const Routes = () => (
         <Route path='/login' exact component={Login} />
         <PrivateRoute path='/dashboard' exact component={Dashboard} />
 
-        <PrivateRoute path='/clientes/new' exact component={NewClientes} />
-        <PrivateRoute path='/clientes' exact component={Clientes} />
-        <PrivateRoute path='/clientes/view/' exact component={ViewClients} />
+        <PrivateRoute path='/clients/new' exact component={NewClientes} />
+        <PrivateRoute path='/clients' exact component={Clientes} />
+        <PrivateRoute path='/clients/view/' exact component={ViewClients} />
 
         <PrivateRoute path='/agendamentos' exact component={Agendamento} />
       </Router>

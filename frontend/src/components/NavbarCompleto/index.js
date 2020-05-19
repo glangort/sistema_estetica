@@ -16,7 +16,7 @@ import {
 
 import './style.css';
 
-const NavbarCompleto = props => {
+const NavbarCompleto = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -26,8 +26,8 @@ const NavbarCompleto = props => {
       <Navbar className='bg-translucent-neutral' expand='md'>
         <NavbarBrand href='/'>
           <img
-            width='150em'
-            height='150em'
+            width='90em'
+            height='200em'
             alt='Estetica Vanessa Baranano'
             src={require('../../assets/img/brand/logo_vanessa.png')}
           />
@@ -39,15 +39,9 @@ const NavbarCompleto = props => {
               <NavLink href='/dashboard'>Principal</NavLink>
             </NavItem>
 
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Clientes
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem href='/clientes'>Clientes</DropdownItem>
-                <DropdownItem href='/clientes/new'>Novo Cliente</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+            <NavItem>
+              <NavLink href='/clients'>Clientes</NavLink>
+            </NavItem>
 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>

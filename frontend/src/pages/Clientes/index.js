@@ -1,95 +1,112 @@
-// import React, { useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-// // import { Container, Navbar } from 'reactstrap'
+// import { Container, Navbar } from 'reactstrap'
 
-// import { Button, Table, Container, Card } from 'reactstrap';
+import {
+  Table,
+  Container,
+  Card,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Row,
+} from 'reactstrap';
 // import { format, parseISO } from 'date-fns';
 
-// import api from '../../services/api';
-// import NavbarCompleta from '../../components/NavbarCompleto';
+import api from '../../services/api';
+import NavbarCompleta from '../../components/NavbarCompleto';
 
-// import './style.css';
+import ViewClientModal from '../../components/Modals/Clients/view';
 
-// export default function Dashboard() {
-//   const [clientes, setClientes] = useState([]);
+import './style.css';
+import './filter';
 
-//   useEffect(() => {
-//     async function carregaClientes() {
-//       const response = await api.get('/client/list');
+export default function Dashboard() {
+  const [clientes, setClientes] = useState([]);
 
-//       setClientes(response.data);
-//     }
+  useEffect(() => {
+    async function carregaClientes() {
+      const response = await api.get('/client/list');
 
-//     carregaClientes();
-//   }, []);
+      setClientes(response.data);
+    }
 
-//   async function handleView(id) {
-//     console.log(id);
-//   }
+    carregaClientes();
+  }, []);
 
-//   const cliente = clientes.map((pessoas) => {
-//     return (
-//       <tr key={pessoas.id}>
-//         <th scope='row'>{pessoas.id}</th>
-//         <td>{pessoas.name}</td>
-//         <td>{pessoas.phonenumber}</td>
-//         <td>{pessoas.celphonenumber}</td>
-//         <td>{format(parseISO(pessoas.schedule[0].date), 'dd/MM/yyyy')}</td>
-//         <td>
-//           {/* <Button className='button-editar' color='success'>
-//             Visualizar
-//           </Button> */}
+  const cliente = clientes.map((pessoas) => {
+    return (
+      <tr id='myTable' key={pessoas.id}>
+        <th scope='row'>{pessoas.id}</th>
+        <td>{pessoas.name}</td>
+        <td>{pessoas.phonenumber}</td>
+        <td>{pessoas.celphonenumber}</td>
+        <td />
+        <td className='table-content'>
+          <ViewClientModal
+            class='btn button-editar btn-success'
+            className='modal-lg'
+            buttonLabel='Visualizar'
+            clientId={pessoas.id}
+          />
 
-//           <Link
-//             type='button'
-//             className='btn button-editar btn-success'
-//             to={{ pathname: '/clientes/view/', state: { userId: pessoas.id } }}
-//           >
-//             Visualizar
-//           </Link>
+          <Link type='button' className='btn button-editar btn-warning'>
+            Editar
+          </Link>
 
-//           <Link
-//             type='button'
-//             className='btn button-editar btn-warning'
-//             to={`/client/edit/${pessoas.id}`}
-//           >
-//             Editar
-//           </Link>
+          <Link type='button' className='btn button-cancelar btn-danger'>
+            Inativar
+          </Link>
+        </td>
+      </tr>
+    );
+  });
+  return (
+    <>
+      <NavbarCompleta />
+      <Container fluid>
+        <Card className='card-body shadow border-0'>
+          <Row>
+            <h4>Clientes </h4>
 
-//           <Link
-//             type='button'
-//             className='btn button-cancelar btn-danger'
-//             to={`/client/delete/${pessoas.id}`}
-//           >
-//             Excluir
-//           </Link>
-//         </td>
-//       </tr>
-//     );
-//   });
-//   return (
-//     <>
-//       <NavbarCompleta />
-//       <Container fluid>
-//         <Card className='card-body shadow border-0'>
-//           <h4>Clientes </h4>
+            <Link type='button' className='btn btn-success button-new'>
+              Cadastrar Novo Cliente
+            </Link>
+          </Row>
 
-//           <Table responsive hover>
-//             <thead>
-//               <tr>
-//                 <th>ID</th>
-//                 <th>Nome</th>
-//                 <th>Telefone</th>
-//                 <th>Telefone</th>
-//                 <th>Ultimo Atendimento</th>
-//                 <th />
-//               </tr>
-//             </thead>
-//             <tbody>{cliente}</tbody>
-//           </Table>
-//         </Card>
-//       </Container>
-//     </>
-//   );
-// }
+          <InputGroup className='input-search'>
+            <InputGroupAddon addonType='prepend'>
+              <InputGroupText>
+                <i className='fa fa-search' />
+              </InputGroupText>
+            </InputGroupAddon>
+            <Input
+              type='search'
+              className='light-table-filter '
+              data-table='order-table'
+              placeholder='Pesquisar.'
+            />
+          </InputGroup>
+
+          <Container fluid>
+            <Table id='example' className='order-table' responsive hover>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nome</th>
+                  <th>Telefone</th>
+                  <th>Celular</th>
+                  <th />
+                  <th />
+                </tr>
+              </thead>
+              <tbody>{cliente}</tbody>
+            </Table>
+          </Container>
+        </Card>
+      </Container>
+    </>
+  );
+}

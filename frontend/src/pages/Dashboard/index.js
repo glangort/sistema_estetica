@@ -8,7 +8,7 @@ import { format, parseISO } from 'date-fns';
 import api from '../../services/api';
 import NavbarCompleta from '../../components/NavbarCompleto';
 import ModalEditDashboard from '../../components/Modals/Dashboard/EditModal';
-import DatePicker from 'react-datepicker';
+// import DatePicker from 'react-datepicker';
 
 import './styles.css';
 
